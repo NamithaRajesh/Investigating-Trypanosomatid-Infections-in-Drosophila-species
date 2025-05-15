@@ -18,7 +18,7 @@ Several studies have confirmed the presence of trypanosomatid species among Dros
 ## Research Approach  
 Previous studies (Chandler & James, 2013; Wilfert et al., 2011; Kapun et al., 2020) have shown that trypanosomatids exist among *Drosophila* populations worldwide. However, my study takes a **novel approach** by investigating **individual fruit fly samples** to determine whether trypanosomatids actively infect them.  
 
-By replicating and assessing the **Kapun et al. (2020)** pipeline using previously collected data, I aim to **refine the methodology** before applying it to my dataset, obtained via **Illumina TruSeq paired-end sequencing**.  
+By replicating and assessing the **Kapun et al. (2020)** pipeline using previously collected data, the study aims to **refine the methodology** before applying it to my dataset, obtained via **Illumina TruSeq paired-end sequencing**.  
 
 If trypanosomatids are absent, the study will pivot toward identifying other microbial species present in the collected data.  
 
