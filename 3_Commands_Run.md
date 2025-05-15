@@ -1,54 +1,53 @@
+Sure! Here's your **Commands_Run.md** file formatted to match the structure you prefer:
+
 ```md
-# Commands Run (Linux Environment)
-**Project Directory:** `/home/hlnrajes/PROJECT/`
+# RNA-seq Analysis Project: Command Line Operations  
 
----
+## Overview  
+This document contains the command-line operations used in the RNA-seq analysis project, detailing steps from quality control to alignment and classification of unmapped reads.  
 
-## Quality Control & SRA Toolkit Setup
-This project involves processing RNA-seq data, requiring various tools for quality control and trimming.  
+## Repository Structure  
+- `project_details.md` – Background information about the project.  
+- `methods.md` – Steps taken so far, including plots explaining the actions taken.  
+- `commands.md` – This file containing all command-line operations used.  
+- `references.md` – A list of tools, datasets, and publications referenced in the project.  
+
+## Quality Control & Preprocessing  
+RNA-seq data requires careful preprocessing to ensure high-quality results. The **SRA Toolkit** provides utilities for working with sequencing data.  
 
 ### **Key Tools in the SRA Toolkit**
-- `fastq-dump` – Converts SRA files into FASTQ format.
-- `prefetch` – Downloads SRA files from NCBI.
-- `vdb-config` – Configures access to NCBI databases.
-- `sam-dump` – Converts SRA files into SAM format.
-- `sra-stat` – Provides statistics on SRA files.
-- `fasterq-dump` – Faster alternative to `fastq-dump`.
+- `fastq-dump` – Converts SRA files into FASTQ format.  
+- `prefetch` – Downloads SRA files from NCBI.  
+- `fasterq-dump` – Optimized version of `fastq-dump`.  
+- `sam-dump` – Converts SRA files into SAM format.  
 
-#### **Installation & Setup**
+#### **Downloading & Setting Up the Toolkit**
 ```sh
 wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
 tar -xvzf sratoolkit.current-ubuntu64.tar.gz
 export PATH=$PATH:/path/to/sratoolkit/bin
 cd sratoolkit.3.1.1-ubuntu64/
-ls DIR/sratoolkit.3.1.1-ubuntu64/bin
 source ~/.bashrc
 ```
 
 #### **Processing RNA-seq Sample (SRR5647735)**
 ```sh
-DIR/sratoolkit.3.1.1-ubuntu64/bin/fastq-dump --split-3 -X 10000 SRR5647735
+fastq-dump --split-3 -X 10000 SRR5647735
 fastp --cut_tail -i SRR5647735_1.fastq -I SRR5647735_2.fastq -o SRR5647735_1.trim.fq -O SRR5647735_2.trim.fq
 ```
-✅ **FastQC Results:**  
-- **Pros**: Good quality reads, stable GC content.  
-- **Cons**: Issues with Per Base Sequence Content at ends, overrepresented sequences, and adapter content → **Trimming Required**  
 
 ---
 
-## Trimming & Adapter Removal
-RNA-seq data requires trimming to remove artifacts affecting analysis accuracy.  
+## Trimming & Adapter Removal  
+FastQC analysis revealed issues requiring trimming. **Trimmomatic** was used to remove low-quality sequences and adapters.  
 
 #### **Creating Adapter File**
 ```sh
 echo ">illumina" > adapter.fa
 echo "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC" >> adapter.fa
-java -jar $TRIMMOMATIC_DIR/trimmomatic-0.39.jar
-module load adoptopenjdk
-module load trimmomatic/0.39
 ```
 
-#### **Testing Multiple Trimmomatic Settings**
+#### **Testing Different Trimming Settings**
 ```sh
 java -jar $TRIMMOMATIC_DIR/trimmomatic-0.39.jar PE -threads 4 -phred33 \
   SRR5647735_1.fastq SRR5647735_2.fastq \
@@ -59,14 +58,14 @@ java -jar $TRIMMOMATIC_DIR/trimmomatic-0.39.jar PE -threads 4 -phred33 \
   TRAILING:20 \
   MINLEN:36
 ```
-✅ **Setting 4 worked best**, successfully removing overrepresented sequences **and** resolving Per Base Sequence Content irregularities.  
+✅ **Best Setting:** Successfully removed overrepresented sequences and adapter content, while addressing sequence irregularities.  
 
 ---
 
-## Alignment Against Reference Genome
-Mapping short reads to the **Drosophila melanogaster** genome using **BWA** for high-accuracy alignment.  
+## Alignment to Reference Genome  
+Short reads were aligned to the **Drosophila melanogaster** genome using **BWA**, a tool optimized for read mapping.  
 
-#### **Conda Setup & Genome Indexing**
+#### **Setting Up Environment & Indexing Reference Genome**
 ```sh
 conda update -n base -c conda-forge conda
 conda create -n bwa_env bwa -c bioconda
@@ -89,8 +88,8 @@ samtools fastq unmapped_4.bam > unmapped_reads_4.fastq
 
 ---
 
-## Identification of Unmapped Reads Using Kraken2
-Kraken2 is a metagenomic classification tool used to **identify non-Drosophila sequences** among unmapped reads.  
+## Identification of Unmapped Reads  
+To classify unmapped reads, **Kraken2** was used for metagenomic analysis.  
 
 #### **Installing & Building Kraken2 Database**
 ```sh
@@ -111,15 +110,13 @@ awk '$4 == "S"' output_4.report > species_classification.txt
 ```
 
 ✅ **Final Observations:**  
-- **Trimming step improved read quality significantly.**  
-- **Alignment successfully mapped reads to the reference genome.**  
-- **Kraken2 classified species from unmapped reads.**  
+- Trimming improved read quality significantly.  
+- Alignment successfully mapped reads to the reference genome.  
+- Kraken2 classified species from unmapped reads.  
 
----
-
-### 📌 Next Steps & Future Work  
-- Further downstream analysis on unmapped reads.  
-- Investigating additional classification methods.  
-- Refining visualization techniques for better reporting.  
+## Future Work  
+- Refining the classification of unmapped reads.  
+- Investigating additional analysis techniques.  
+- Incorporating visualization methods for improved reporting.  
 
 ```
