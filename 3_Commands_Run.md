@@ -141,9 +141,7 @@ kraken2 --db /home/hlnrajes/Project/kraken/kraken_database --threads 4 \
 awk '$4 == "S"' output_4.report > species_classification.txt
 ```
 
-✅ **Final Observations:**  
+**Final Observations:**  
 - Trimming improved read quality significantly.  
 - Alignment successfully mapped reads to the reference genome.  
 - Kraken2 classified species from unmapped reads.  
-
-```
