@@ -24,7 +24,7 @@ fastq-dump --split-3 -X 10000 SRR5647735
 fastp --cut_tail -i SRR5647735_1.fastq -I SRR5647735_2.fastq -o SRR5647735_1.trim.fq -O SRR5647735_2.trim.fq
 ```
 
-### FastQC Results: 
+#### FastQC Results: 
 - **Pros**: Good quality reads, stable GC content.  
 - **Cons**: Issues with Per Base Sequence Content at ends, overrepresented sequences, and adapter content → **Trimming Required**  
 
