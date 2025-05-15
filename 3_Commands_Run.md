@@ -32,13 +32,13 @@ fastp --cut_tail -i SRR5647735_1.fastq -I SRR5647735_2.fastq -o SRR5647735_1.tri
 
 ## Trimming & Adapter Removal  
 
-### **Creating Adapter File**
+#### **Creating Adapter File**
 ```sh
 echo ">illumina" > adapter.fa
 echo "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC" >> adapter.fa
 ```
 
-### **Testing Different Trimmomatic Settings**  
+#### **Testing Different Trimmomatic Settings**  
 Multiple settings were tested to optimize trimming.  
 
 ##### **Setting 1**
