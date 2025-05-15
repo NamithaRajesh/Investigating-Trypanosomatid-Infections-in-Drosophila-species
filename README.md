@@ -12,4 +12,4 @@
 - Optimization of pipeline for efficiency.  
 
 ## How to Use This Repository  
-If you're following along, check `methods.md` for step-by-step documentation of how the analysis is being carried out.  
+If you're following along, check `Methods.md` for step-by-step documentation of how the analysis is being carried out.  
