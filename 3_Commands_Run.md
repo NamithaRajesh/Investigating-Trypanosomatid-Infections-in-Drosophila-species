@@ -120,7 +120,7 @@ samtools fastq unmapped_4.bam > unmapped_reads_4.fastq
 
 #### **Installing & Building Kraken2 Database**
 ```sh
-**Project Directory DIR:** `/home/hlnrajes/PROJECT/kraken/kraken_database`
+Project Directory DIR: `/home/hlnrajes/PROJECT/kraken/kraken_database`
 
 sudo apt install kraken2
 sudo kraken2-build --standard --db /home/hlnrajes/Project/kraken/kraken_database
@@ -138,7 +138,7 @@ kraken2 --db /home/hlnrajes/Project/kraken/kraken_database --threads 4 \
 awk '$4 == "S"' output_4.report > species_classification.txt
 ```
 
-**Final Observations:**  
+## **Final Observations:**  
 - Trimming improved read quality significantly.  
 - Alignment successfully mapped reads to the reference genome.  
 - Kraken2 classified species from unmapped reads.  
