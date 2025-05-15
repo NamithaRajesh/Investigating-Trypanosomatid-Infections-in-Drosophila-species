@@ -1,4 +1,4 @@
-# Trypanosomatid Infection in Drosophila  
+# Investigating Trypanosomatid Infection in Drosophila  
 
 ## Overview  
 Drosophila, commonly known as fruit flies, originated in Africa before migrating worldwide, adapting to diverse climates and environments, leading to the formation of various species. Due to their rapid life cycle, high progeny production, distinguishable morphological characters, simple dietary needs, and genetic similarity—sharing counterparts in 75% of human disease genes—they serve as model organisms in microbial pathogen interaction studies.  
