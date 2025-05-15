@@ -137,6 +137,37 @@ kraken2 --db /home/hlnrajes/Project/kraken/kraken_database --threads 4 \
 awk '$4 == "S"' output_4.report > species_classification.txt
 ```
 
+## Data Visualization in R  
+
+The **species_classification.txt** file was analyzed in R to generate a graph depicting the relative species percentages:  
+
+```r
+# Load necessary libraries
+library(ggplot2)
+
+# Define the Kraken 2 report file
+data_file <- "species_classification.txt"  # Change to "output_4.report" if needed
+
+# Read data from the Kraken 2 report file
+data <- read.delim(data_file, header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+# Extract species names and percentages
+species <- as.character(data[,6])  # Convert species names to character (fix axis issue)
+percentages <- as.numeric(data[,1])  # Convert percentages to numeric
+
+# Select top 10 species for visualization
+top_species <- species[1:10]
+top_percentages <- percentages[1:10]
+
+# 🔹 Bar Chart using ggplot2 with species labels on X-axis
+ggplot(data.frame(Species = top_species, Percentage = top_percentages), aes(x = Species, y = Percentage)) +
+  geom_bar(stat="identity", fill="darkblue") +  # Dark blue fill
+  geom_text(aes(label = sprintf("%.2f%%", Percentage)), vjust = -0.5, color = "white", size = 4) +  # Percentage labels
+  labs(title="Kraken 2 Taxonomic Classification - Bar Chart", x="Species", y="Percentage (%)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  # Rotate X-axis labels for readability
+```
+
 ## **Final Observations:**  
 - Trimming improved read quality significantly.  
 - Alignment successfully mapped reads to the reference genome.  
