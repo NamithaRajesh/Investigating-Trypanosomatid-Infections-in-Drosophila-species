@@ -1,18 +1,15 @@
-```md
 # Commands Run (Linux Environment)
-**Project Directory:** `/home/hlnrajes/PROJECT/`
-
----
+Project Directory: `/home/hlnrajes/PROJECT/`
 
 ## Quality Control
 
-### **Key Tools in the SRA Toolkit**
+### Key Tools in the SRA Toolkit
 - `fastq-dump` – Converts SRA files into FASTQ format.  
 - `prefetch` – Downloads SRA files from NCBI.  
 - `fasterq-dump` – Optimized version of `fastq-dump`.  
 - `sam-dump` – Converts SRA files into SAM format.  
 
-#### **Downloading & Setting Up the Toolkit**
+#### Downloading & Setting Up the Toolkit
 ```sh
 wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
 tar -xvzf sratoolkit.current-ubuntu64.tar.gz
@@ -21,13 +18,13 @@ cd sratoolkit.3.1.1-ubuntu64/
 source ~/.bashrc
 ```
 
-#### **Processing RNA-seq Sample (SRR5647735)**
+#### Processing RNA-seq Sample (SRR5647735)
 ```sh
 fastq-dump --split-3 -X 10000 SRR5647735
 fastp --cut_tail -i SRR5647735_1.fastq -I SRR5647735_2.fastq -o SRR5647735_1.trim.fq -O SRR5647735_2.trim.fq
 ```
 
-✅ **FastQC Results:**  
+### FastQC Results: 
 - **Pros**: Good quality reads, stable GC content.  
 - **Cons**: Issues with Per Base Sequence Content at ends, overrepresented sequences, and adapter content → **Trimming Required**  
 
@@ -35,13 +32,13 @@ fastp --cut_tail -i SRR5647735_1.fastq -I SRR5647735_2.fastq -o SRR5647735_1.tri
 
 ## Trimming & Adapter Removal  
 
-#### **Creating Adapter File**
+### **Creating Adapter File**
 ```sh
 echo ">illumina" > adapter.fa
 echo "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC" >> adapter.fa
 ```
 
-#### **Testing Different Trimmomatic Settings**  
+### **Testing Different Trimmomatic Settings**  
 Multiple settings were tested to optimize trimming.  
 
 ##### **Setting 1**
@@ -86,13 +83,13 @@ java -jar $TRIMMOMATIC_DIR/trimmomatic-0.39.jar PE -threads 4 -phred33 \
   HEADCROP:142
 ```
 
-✅ **Setting 4 showed the best outcome**, resolving overrepresented sequences and adapter content, which were observed in other settings also **but Setting 4 also fixed the Per Base Sequence Content irregularities**, making it the final choice for trimming.
+**Setting 4** showed the best outcome, resolving overrepresented sequences and adapter content, which were observed in other settings also **but Setting 4 also fixed the Per Base Sequence Content irregularities**, making it the final choice for trimming.
 
 ---
 
 ## Alignment to Reference Genome  
 
-#### **Setting Up Environment & Indexing Reference Genome**
+#### Setting Up Environment & Indexing Reference Genome
 ```sh
 # Drosophila Genome collected from FlyBase database  
 # URL: Index of genomes/Drosophila_melanogaster/current/fasta/  
