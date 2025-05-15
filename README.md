@@ -3,7 +3,7 @@
 ## Repository Structure  
 - `project_details.md` – Background information about the project.  
 - `methods.md` – Steps taken so far, including plots explaining the actions taken.  
-- `commands.txt` – List of command-line operations used during analysis. (Will be converted to `.md` later.)  
+- `commands.txt` – List of command-line operations used during analysis. 
 - `references.md` – A list of tools, datasets, and publications referenced in the project.  
 
 ## Future Work  
