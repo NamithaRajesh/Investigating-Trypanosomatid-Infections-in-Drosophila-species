@@ -25,7 +25,8 @@ Given the identified adapter content and sequence irregularities, **Trimmomatic*
 ## Trimmomatic: Testing Four Settings  
 Each trimming setting was evaluated for **read length, sequence integrity, and GC content stability**.  
 
-### **FastQC Results After Trimming**  
+### **FastQC Results After Trimming**
+Pbsc - Per Base Sequence Content 
 #### **Setting 1**  
 - **Read Lengths**: 36 - 151  
 - **Total Sequences**: 9,040  
